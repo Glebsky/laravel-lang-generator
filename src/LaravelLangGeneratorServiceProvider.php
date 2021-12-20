@@ -9,7 +9,7 @@ class LaravelLangGeneratorServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'../config/lang-generator.php', 'lang-generator');
+        $this->mergeConfigFrom(__DIR__.'/../config/lang-generator.php', 'lang-generator');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -21,7 +21,7 @@ class LaravelLangGeneratorServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'../config/lang-generator.php' => config_path('lang-generator.php'),
+            __DIR__.'/../config/lang-generator.php' => config_path('lang-generator.php'),
         ], 'config');
     }
 }
