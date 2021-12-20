@@ -9,3 +9,4 @@ install:
   - composer update && composer install
 
 script:
+  -
