@@ -5,7 +5,5 @@ php:
   - 7.4
   - 8.0
 
-dist: trusty
-
 install:
   - composer update && composer install
