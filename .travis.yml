@@ -11,4 +11,4 @@ php:
 dist: trusty
 
 install:
-  - composer install
+  - composer install && composer install
