@@ -65,7 +65,7 @@ By default name of lang file is `lang`
 
 In addition, the command accepts several parameters that allow you to flexibly manage the package.
 ```
-php artisan lang:generate lang:generate --type= --name= --langs= --sync --clear --path=
+php artisan lang:generate --type= --name= --langs= --sync --clear --path=
 ```
 ### About parameters 
 
