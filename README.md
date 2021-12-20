@@ -4,7 +4,7 @@
 <p align="center">
 <a href="https://travis-ci.org/glebsky/laravel-lang-generator"><img src="https://app.travis-ci.com/Glebsky/laravel-lang-generator.svg?branch=main" alt="Build Status"></a>
 <a href="https://styleci.io/repos/440089612"><img src="https://github.styleci.io/repos/440089612/shield?style=flat" alt="StyleCI"></a>
-<a href="https://packagist.org/packages/glebsky/laravel-lang-generator"><img src="http://poser.pugx.org/glebsky/laravel-lang-generator/v" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/glebsky/laravel-lang-generator"><img src="git tag -a 0.0.0:" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/glebsky/laravel-lang-generator"><img src="http://poser.pugx.org/glebsky/laravel-lang-generator/downloads" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/glebsky/laravel-lang-generator"><img src="http://poser.pugx.org/glebsky/laravel-lang-generator/v/unstable" alt="Stable"></a>
 <a href="https://packagist.org/packages/glebsky/laravel-lang-generator"><img src="http://poser.pugx.org/glebsky/laravel-lang-generator/license" alt="License"></a>
