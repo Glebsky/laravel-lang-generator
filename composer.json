@@ -4,7 +4,6 @@
     "keywords": ["laravel", "language", "translation", "automatic translation"],
     "type": "library",
     "license": "MIT",
-    "version": "1.0.0",
     "time": "2021-12-20",
     "authors": [
         {
@@ -13,7 +12,7 @@
             "role": "Developer"
         }
     ],
-    "minimum-stability": "1.0.0",
+    "minimum-stability": "stable",
     "require": {
         "php": "^7.3|| ^8.0",
         "illuminate/collections": ">=8.0.0",
