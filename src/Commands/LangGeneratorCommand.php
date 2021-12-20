@@ -17,23 +17,23 @@ class LangGeneratorCommand extends Command
     {
         parent::__construct();
 
-        $this->manager   = $manager;
-        $this->manager->fileType  = config('lang-generator.file_type');
-        $this->manager->fileName  = config('lang-generator.file_name');
+        $this->manager = $manager;
+        $this->manager->fileType = config('lang-generator.file_type');
+        $this->manager->fileName = config('lang-generator.file_name');
         $this->manager->languages = config('lang-generator.languages');
     }
 
     public function handle()
     {
-        $this->manager->output   = $this->output;
+        $this->manager->output = $this->output;
 
         //Get user input configs
-        $this->manager->isSync        = $this->option('sync');
-        $this->manager->isNew         = $this->option('clear');
+        $this->manager->isSync = $this->option('sync');
+        $this->manager->isNew = $this->option('clear');
 
-        $this->manager->fileType      = $this->option('type') ?: $this->manager->fileType;
-        $this->manager->fileName      = $this->option('name') ?: $this->manager->fileName;
-        $this->manager->languages     = $this->option('langs') ?: $this->manager->languages;
+        $this->manager->fileType = $this->option('type') ?: $this->manager->fileType;
+        $this->manager->fileName = $this->option('name') ?: $this->manager->fileName;
+        $this->manager->languages = $this->option('langs') ?: $this->manager->languages;
         $this->manager->path = $this->option('path');
 
         if ($this->manager->isNew) {
@@ -42,6 +42,7 @@ class LangGeneratorCommand extends Command
             } else {
                 $this->error('Generating translations files aborted.');
             }
+
             return;
         }
 
