@@ -1,7 +1,7 @@
 {
     "name": "glebsky/laravel-lang-generator",
     "description": "Searches for multilingual phrases in Laravel project and automatically generates language files for you.",
-    "keywords": "laravel, language, translation, automatic translation",
+    "keywords": ["laravel, language, translation, automatic translation"],
     "type": "library",
     "license": "MIT",
     "version": "1.0.0",
@@ -15,7 +15,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "illuminate/collections": ">=8.0.0"
+        "illuminate/collections": ">=8.0.0",
+        "illuminate/console": ">=5.1"
     },
     "autoload": {
         "psr-4": {
