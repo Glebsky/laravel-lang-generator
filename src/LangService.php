@@ -5,27 +5,28 @@ namespace Glebsky\LaravelLangGenerator;
 class LangService
 {
     public $isSync = false;
-    public $isNew  = false;
+    public $isNew = false;
 
-    public $viewsFilesCount  = 0;
-    public $viewsKeysCount   = 0;
-    public $appFilesCount    = 0;
-    public $appKeysCount     = 0;
+    public $viewsFilesCount = 0;
+    public $viewsKeysCount = 0;
+    public $appFilesCount = 0;
+    public $appKeysCount = 0;
     public $customFilesCount = 0;
-    public $customKeysCount  = 0;
+    public $customKeysCount = 0;
 
     public $path;
-    public $files            = [];
+    public $files = [];
     public $translationsKeys = [];
 
-    public $fileType  = 'array';
-    public $fileName  = 'lang';
+    public $fileType = 'array';
+    public $fileName = 'lang';
     public $languages = ['en'];
 
     public $output;
 
     /**
-     * Parse main directories for the availability of translations
+     * Parse main directories for the availability of translations.
+     *
      * @return void
      */
     public function parseProject()
@@ -35,11 +36,11 @@ class LangService
         //Parse custom path
         if ($this->path !== null) {
             $this->info('Parsing custom path...');
-            $this->line('Path: ' . base_path($this->path));
+            $this->line('Path: '.base_path($this->path));
 
             if (!is_dir(base_path($this->path))) {
                 $this->error('Can\'t find the specified directory. Please check --path parameter');
-                die();
+                exit();
             }
 
             $this->parseDirectory(base_path($this->path));
@@ -53,15 +54,15 @@ class LangService
             $bar->finish();
 
             $this->newLine(1);
-            $this->line('Custom path parse finished. Found ' . $this->customKeysCount . ' keys in ' . $this->customFilesCount . ' files');
+            $this->line('Custom path parse finished. Found '.$this->customKeysCount.' keys in '.$this->customFilesCount.' files');
             unset($this->files);
 
             $this->newLine(1);
-            $this->line('Total keys found: ' . count($this->translationsKeys));
+            $this->line('Total keys found: '.count($this->translationsKeys));
 
             if (empty($this->translationsKeys)) {
                 $this->error('Nothing to generate.');
-                die();
+                exit();
             }
 
             $this->newLine(1);
@@ -71,7 +72,7 @@ class LangService
 
             $this->newLine(1);
             $this->info('Translation files generated.');
-            die();
+            exit();
         }
 
         //VIEWS FOLDER
@@ -87,7 +88,7 @@ class LangService
         $bar->finish();
 
         $this->newLine(1);
-        $this->line('Views parse finished. Found ' . $this->viewsKeysCount . ' keys in ' . $this->viewsFilesCount . ' files');
+        $this->line('Views parse finished. Found '.$this->viewsKeysCount.' keys in '.$this->viewsFilesCount.' files');
         unset($this->files);
 
         //APP FOLDER
@@ -104,10 +105,10 @@ class LangService
         $bar->finish();
 
         $this->newLine(1);
-        $this->line('App parse finished. Found ' . $this->appKeysCount . ' keys in ' . $this->appFilesCount . ' files');
+        $this->line('App parse finished. Found '.$this->appKeysCount.' keys in '.$this->appFilesCount.' files');
 
         $this->newLine(1);
-        $this->line('Total keys found: ' . count($this->translationsKeys));
+        $this->line('Total keys found: '.count($this->translationsKeys));
 
         $this->newLine(1);
         $this->info('Generating translations...');
@@ -119,8 +120,10 @@ class LangService
     }
 
     /**
-     * Parse single folder for the availability of translations files
+     * Parse single folder for the availability of translations files.
+     *
      * @param string $directory
+     *
      * @return void
      */
     public function parseDirectory(string $directory)
@@ -130,7 +133,7 @@ class LangService
             if ($entry === '.' || $entry === '..') {
                 continue;
             }
-            $path = $directory . '/' . $entry;
+            $path = $directory.'/'.$entry;
             if (is_dir($path)) {
                 $this->parseDirectory($path);
                 continue;
@@ -144,8 +147,10 @@ class LangService
     }
 
     /**
-     * Parse translation file for translation keys
+     * Parse translation file for translation keys.
+     *
      * @param string $path
+     *
      * @return void
      */
     public function parseFile(string $path)
@@ -167,13 +172,13 @@ class LangService
         }
 
         if (str_contains($path, resource_path('views'))) {
-            ++$this->viewsFilesCount;
+            $this->viewsFilesCount++;
             $this->viewsKeysCount += count($data);
         } elseif (str_contains($path, app_path())) {
-            ++$this->appFilesCount;
+            $this->appFilesCount++;
             $this->appKeysCount += count($data);
         } elseif (str_contains($path, $this->path)) {
-            ++$this->customFilesCount;
+            $this->customFilesCount++;
             $this->customKeysCount += count($data);
         }
 
@@ -181,24 +186,25 @@ class LangService
     }
 
     /**
-     * Generate new language files in resource/lang folder
+     * Generate new language files in resource/lang folder.
+     *
      * @param array $dataArr All founded language keys in single file
+     *
      * @return void
      */
     public function generateLangsFiles(array $dataArr)
     {
         if ($this->fileType === 'json') {
             foreach ($this->languages as $language) {
-
                 if ($this->isNew === false) {
-                    $dataArr = $this->updateValues(resource_path('lang/' . $language . '.json'), $dataArr);
+                    $dataArr = $this->updateValues(resource_path('lang/'.$language.'.json'), $dataArr);
                 }
 
                 if ($this->isSync === true) {
                     $dataArr = $this->syncValues($this->translationsKeys, $dataArr);
                 }
 
-                file_put_contents(resource_path('lang/' . $language . '.json'), json_encode($dataArr, JSON_PRETTY_PRINT));
+                file_put_contents(resource_path('lang/'.$language.'.json'), json_encode($dataArr, JSON_PRETTY_PRINT));
             }
         } elseif ($this->fileType === 'array') {
             $res = [];
@@ -220,8 +226,10 @@ class LangService
 
     /**
      * Assign existing translation keys values to new.
+     *
      * @param string $path
-     * @param array $dataArr
+     * @param array  $dataArr
+     *
      * @return array|void
      */
     private function updateValues(string $path, array $dataArr)
@@ -233,16 +241,18 @@ class LangService
                 foreach ($existingArr as $key => $value) {
                     $dataArr[$key] = $value;
                 }
+
                 return $dataArr;
             }
 
             foreach ($dataArr as $key => $value) {
                 $dataArr[$key] = $key;
             }
+
             return $dataArr;
         } elseif ($this->fileType === 'array') {
             if (file_exists($path)) {
-                $existingArr = include($path);
+                $existingArr = include $path;
 
                 if (is_array($existingArr)) {
                     foreach ($existingArr as $key => $value) {
@@ -254,14 +264,17 @@ class LangService
                     }
                 }
             }
+
             return $dataArr;
         }
     }
 
     /**
      * Progressive merge two arrays into one.
+     *
      * @param array $dataArr
      * @param array $existingArr
+     *
      * @return array
      */
     private function arrayUpdater(array $dataArr, array $existingArr)
@@ -282,9 +295,11 @@ class LangService
     }
 
     /**
-     * Delete unused translation keys
+     * Delete unused translation keys.
+     *
      * @param array $parsedArr
      * @param array $dataArr
+     *
      * @return array
      */
     private function syncValues(array $parsedArr, array $dataArr)
@@ -316,20 +331,22 @@ class LangService
     }
 
     /**
-     * Fill Array language file
+     * Fill Array language file.
+     *
      * @param $fileName
      * @param array $keys
+     *
      * @return void
      */
     private function fillKeys($fileName, array $keys)
     {
         foreach ($this->languages as $language) {
-            if (!file_exists(resource_path('lang' . "/{$language}"))) {
-                if (!mkdir(resource_path('lang' . "/{$language}"), 0777, true) && !is_dir(resource_path('lang' . "/{$language}"))) {
+            if (!file_exists(resource_path('lang'."/{$language}"))) {
+                if (!mkdir(resource_path('lang'."/{$language}"), 0777, true) && !is_dir(resource_path('lang'."/{$language}"))) {
                     throw new \RuntimeException(sprintf('Directory "%s" was not created', 'path/to/directory'));
                 }
             }
-            $filePath = resource_path('lang' . "/{$language}/{$fileName}.php");
+            $filePath = resource_path('lang'."/{$language}/{$fileName}.php");
 
             if ($this->isNew === false) {
                 $keys = $this->updateValues($filePath, $keys);
@@ -352,9 +369,11 @@ class LangService
     |--------------------------------------------------------------------------
     */
     /**
-     * Write translation keys to a .php arrays
+     * Write translation keys to a .php arrays.
+     *
      * @param $filePath
      * @param array $translations
+     *
      * @return void
      */
     private function writeFile($filePath, array $translations)
@@ -369,9 +388,11 @@ class LangService
     }
 
     /**
-     * Generate a string line for a array translation file
+     * Generate a string line for a array translation file.
+     *
      * @param $array
      * @param $prepend
+     *
      * @return string
      */
     private function stringLineMaker($array, $prepend = '')
@@ -380,7 +401,7 @@ class LangService
 
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $value = $this->stringLineMaker($value, $prepend . '    ');
+                $value = $this->stringLineMaker($value, $prepend.'    ');
 
                 $output .= "\n{$prepend}    '{$key}' => [{$value}\n{$prepend}    ],";
             } else {
