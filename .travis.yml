@@ -6,7 +6,7 @@ php:
   - 8.0
 
 install:
-  - composer update && composer install && composer require glebsky/laravel-lang-generator
+  - composer update && composer install
 
 script:
   - echo "skipping tests"
