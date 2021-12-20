@@ -104,5 +104,4 @@ If you specify this flag, existing language files are removed and new ones are c
 Example: `php artisan lang:generate --clear`
 
 ## Notes
-
 `lang:generate` will update your language files by writing them completely, meaning that any comments or special styling will be removed, so I recommend you backup your files.
