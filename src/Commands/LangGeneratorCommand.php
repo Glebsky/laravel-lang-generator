@@ -2,7 +2,7 @@
 
 namespace Glebsky\LaravelLangGenerator\Commands;
 
-use App\Services\LangService;
+use Glebsky\LaravelLangGenerator\LangService;
 use Illuminate\Console\Command;
 
 class LangGeneratorCommand extends Command
