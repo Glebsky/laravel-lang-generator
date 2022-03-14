@@ -85,7 +85,7 @@ Example: `php artisan lang:generate --name="pagination"`
 
 `--langs=` or `-L`:
 
-is responsible for the generated languages and accepts an array. Language folders with the specified data will be created. By default it just `en`. <br>Example: `php artisan lang:generate --langs="en" --langs="es`
+is responsible for the generated languages and accepts an array. Language folders with the specified data will be created. By default it just `en`. <br>Example: `php artisan lang:generate --langs="en" --langs="es"`
 
 ---
 

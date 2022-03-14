@@ -2,7 +2,9 @@
 
 namespace Glebsky\LaravelLangGenerator;
 
-class LangService
+use Illuminate\Console\Command;
+
+class LangService extends Command
 {
     public $isSync = false;
     public $isNew = false;
@@ -163,11 +165,14 @@ class LangService
         $data = [];
         foreach ($matches as $match) {
             if (isset($match[3]) && !is_null($match[3])) {
-                $data[$match[3]] = '';
+                $key = str_replace("'",'',$match[3]);
+                $data[$key] = '';
             } elseif (isset($match[2]) && !is_null($match[2])) {
-                $data[$match[2]] = '';
+                $key = str_replace("'",'',$match[2]);
+                $data[$key] = '';
             } elseif (isset($match[1]) && !is_null($match[1])) {
-                $data[$match[1]] = '';
+                $key = str_replace("'",'',$match[1]);
+                $data[$key] = '';
             }
         }
 
@@ -356,7 +361,7 @@ class LangService
                 $keys = $this->syncValues($this->translationsKeys, $keys);
             }
 
-            file_put_contents($filePath, "<?php\nreturn [];");
+            file_put_contents($filePath, "<?php\nreturn [];",LOCK_EX);
             $fileContent = $keys;
 
             $this->writeFile($filePath, $fileContent);
@@ -384,7 +389,7 @@ class LangService
 
         $content .= "\n];";
 
-        file_put_contents($filePath, $content);
+        file_put_contents($filePath, $content,LOCK_EX);
     }
 
     /**
