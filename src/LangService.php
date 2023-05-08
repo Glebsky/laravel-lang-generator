@@ -42,7 +42,7 @@ class LangService extends Command
 
             if (!is_dir(base_path($this->path))) {
                 $this->error('Can\'t find the specified directory. Please check --path parameter');
-                exit();
+                exit;
             }
 
             $this->parseDirectory(base_path($this->path));
@@ -64,7 +64,7 @@ class LangService extends Command
 
             if (empty($this->translationsKeys)) {
                 $this->error('Nothing to generate.');
-                exit();
+                exit;
             }
 
             $this->newLine(1);
@@ -74,7 +74,7 @@ class LangService extends Command
 
             $this->newLine(1);
             $this->info('Translation files generated.');
-            exit();
+            exit;
         }
 
         //VIEWS FOLDER
