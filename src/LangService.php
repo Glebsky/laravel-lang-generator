@@ -165,13 +165,13 @@ class LangService extends Command
         $data = [];
         foreach ($matches as $match) {
             if (isset($match[3]) && !is_null($match[3])) {
-                $key = str_replace("'",'',$match[3]);
+                $key = str_replace("'", '', $match[3]);
                 $data[$key] = '';
             } elseif (isset($match[2]) && !is_null($match[2])) {
-                $key = str_replace("'",'',$match[2]);
+                $key = str_replace("'", '', $match[2]);
                 $data[$key] = '';
             } elseif (isset($match[1]) && !is_null($match[1])) {
-                $key = str_replace("'",'',$match[1]);
+                $key = str_replace("'", '', $match[1]);
                 $data[$key] = '';
             }
         }
@@ -361,7 +361,7 @@ class LangService extends Command
                 $keys = $this->syncValues($this->translationsKeys, $keys);
             }
 
-            file_put_contents($filePath, "<?php\nreturn [];",LOCK_EX);
+            file_put_contents($filePath, "<?php\nreturn [];", LOCK_EX);
             $fileContent = $keys;
 
             $this->writeFile($filePath, $fileContent);
@@ -389,7 +389,7 @@ class LangService extends Command
 
         $content .= "\n];";
 
-        file_put_contents($filePath, $content,LOCK_EX);
+        file_put_contents($filePath, $content, LOCK_EX);
     }
 
     /**
