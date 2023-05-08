@@ -202,14 +202,14 @@ class LangService extends Command
         if ($this->fileType === 'json') {
             foreach ($this->languages as $language) {
                 if ($this->isNew === false) {
-                    $dataArr = $this->updateValues(resource_path('lang/'.$language.'.json'), $dataArr);
+                    $dataArr = $this->updateValues(base_path('lang/'.$language.'.json'), $dataArr);
                 }
 
                 if ($this->isSync === true) {
                     $dataArr = $this->syncValues($this->translationsKeys, $dataArr);
                 }
 
-                file_put_contents(resource_path('lang/'.$language.'.json'), json_encode($dataArr, JSON_PRETTY_PRINT));
+                file_put_contents(base_path('lang/'.$language.'.json'), json_encode($dataArr, JSON_PRETTY_PRINT));
             }
         } elseif ($this->fileType === 'array') {
             $res = [];
@@ -346,12 +346,12 @@ class LangService extends Command
     private function fillKeys($fileName, array $keys)
     {
         foreach ($this->languages as $language) {
-            if (!file_exists(resource_path('lang'."/{$language}"))) {
-                if (!mkdir(resource_path('lang'."/{$language}"), 0777, true) && !is_dir(resource_path('lang'."/{$language}"))) {
+            if (!file_exists(base_path('lang'."/{$language}"))) {
+                if (!mkdir(base_path('lang'."/{$language}"), 0777, true) && !is_dir(base_path('lang'."/{$language}"))) {
                     throw new \RuntimeException(sprintf('Directory "%s" was not created', 'path/to/directory'));
                 }
             }
-            $filePath = resource_path('lang'."/{$language}/{$fileName}.php");
+            $filePath = base_path('lang'."/{$language}/{$fileName}.php");
 
             if ($this->isNew === false) {
                 $keys = $this->updateValues($filePath, $keys);
