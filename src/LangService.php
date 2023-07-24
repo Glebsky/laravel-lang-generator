@@ -42,7 +42,7 @@ class LangService extends Command
 
             if (!is_dir(base_path($this->path))) {
                 $this->error('Can\'t find the specified directory. Please check --path parameter');
-                exit();
+                exit;
             }
 
             $this->parseDirectory(base_path($this->path));
@@ -64,7 +64,7 @@ class LangService extends Command
 
             if (empty($this->translationsKeys)) {
                 $this->error('Nothing to generate.');
-                exit();
+                exit;
             }
 
             $this->newLine(1);
@@ -74,7 +74,7 @@ class LangService extends Command
 
             $this->newLine(1);
             $this->info('Translation files generated.');
-            exit();
+            exit;
         }
 
         //VIEWS FOLDER
@@ -165,13 +165,13 @@ class LangService extends Command
         $data = [];
         foreach ($matches as $match) {
             if (isset($match[3]) && !is_null($match[3])) {
-                $key = str_replace("'",'',$match[3]);
+                $key = str_replace("'", '', $match[3]);
                 $data[$key] = '';
             } elseif (isset($match[2]) && !is_null($match[2])) {
-                $key = str_replace("'",'',$match[2]);
+                $key = str_replace("'", '', $match[2]);
                 $data[$key] = '';
             } elseif (isset($match[1]) && !is_null($match[1])) {
-                $key = str_replace("'",'',$match[1]);
+                $key = str_replace("'", '', $match[1]);
                 $data[$key] = '';
             }
         }
@@ -202,14 +202,14 @@ class LangService extends Command
         if ($this->fileType === 'json') {
             foreach ($this->languages as $language) {
                 if ($this->isNew === false) {
-                    $dataArr = $this->updateValues(resource_path('lang/'.$language.'.json'), $dataArr);
+                    $dataArr = $this->updateValues(base_path('lang/'.$language.'.json'), $dataArr);
                 }
 
                 if ($this->isSync === true) {
                     $dataArr = $this->syncValues($this->translationsKeys, $dataArr);
                 }
 
-                file_put_contents(resource_path('lang/'.$language.'.json'), json_encode($dataArr, JSON_PRETTY_PRINT));
+                file_put_contents(base_path('lang/'.$language.'.json'), json_encode($dataArr, JSON_PRETTY_PRINT));
             }
         } elseif ($this->fileType === 'array') {
             $res = [];
@@ -346,12 +346,12 @@ class LangService extends Command
     private function fillKeys($fileName, array $keys)
     {
         foreach ($this->languages as $language) {
-            if (!file_exists(resource_path('lang'."/{$language}"))) {
-                if (!mkdir(resource_path('lang'."/{$language}"), 0777, true) && !is_dir(resource_path('lang'."/{$language}"))) {
+            if (!file_exists(base_path('lang'."/{$language}"))) {
+                if (!mkdir(base_path('lang'."/{$language}"), 0777, true) && !is_dir(base_path('lang'."/{$language}"))) {
                     throw new \RuntimeException(sprintf('Directory "%s" was not created', 'path/to/directory'));
                 }
             }
-            $filePath = resource_path('lang'."/{$language}/{$fileName}.php");
+            $filePath = base_path('lang'."/{$language}/{$fileName}.php");
 
             if ($this->isNew === false) {
                 $keys = $this->updateValues($filePath, $keys);
@@ -361,7 +361,7 @@ class LangService extends Command
                 $keys = $this->syncValues($this->translationsKeys, $keys);
             }
 
-            file_put_contents($filePath, "<?php\nreturn [];",LOCK_EX);
+            file_put_contents($filePath, "<?php\nreturn [];", LOCK_EX);
             $fileContent = $keys;
 
             $this->writeFile($filePath, $fileContent);
@@ -389,7 +389,7 @@ class LangService extends Command
 
         $content .= "\n];";
 
-        file_put_contents($filePath, $content,LOCK_EX);
+        file_put_contents($filePath, $content, LOCK_EX);
     }
 
     /**
