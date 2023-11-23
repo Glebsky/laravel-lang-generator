@@ -8,7 +8,8 @@ class LangService extends Command
 {
     public $isSync = false;
     public $isNew = false;
-
+    public $doAppend = false;
+    
     public $viewsFilesCount = 0;
     public $viewsKeysCount = 0;
     public $appFilesCount = 0;
@@ -242,12 +243,23 @@ class LangService extends Command
         if ($this->fileType === 'json') {
             if (file_exists($path)) {
                 $existingArr = json_decode(file_get_contents($path), true);
+                
+                if($this->doAppend) {
+                    $tempArray = $existingArr;
 
-                foreach ($existingArr as $key => $value) {
-                    $dataArr[$key] = $value;
+                    foreach ($dataArr as $key => $value) {
+                        if(!isset($tempArray[$key])) {
+                            $tempArray[$key] = $value;
+                        }
+                    }
+
+                    return $tempArray;
+                } else {
+                    foreach ($existingArr as $key => $value) {
+                        $dataArr[$key] = $value;
+                    }
+                    return $dataArr;
                 }
-
-                return $dataArr;
             }
 
             foreach ($dataArr as $key => $value) {

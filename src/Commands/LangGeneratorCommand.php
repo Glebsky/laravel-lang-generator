@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 
 class LangGeneratorCommand extends Command
 {
-    protected $signature = 'lang:generate {--T|type=} {--N|name=} {--L|langs=*} {--S|sync} {--C|clear} {--P|path=}';
+    protected $signature = 'lang:generate {--T|type=} {--N|name=} {--L|langs=*} {--S|sync} {--C|clear} {--P|path=} {--A|append}';
 
     protected $description = 'Searches for multilingual phrases in Laravel project and automatically generates language files for you.';
 
@@ -30,12 +30,18 @@ class LangGeneratorCommand extends Command
         //Get user input configs
         $this->manager->isSync = $this->option('sync');
         $this->manager->isNew = $this->option('clear');
+        $this->manager->doAppend = $this->option('append');
 
         $this->manager->fileType = $this->option('type') ?: $this->manager->fileType;
         $this->manager->fileName = $this->option('name') ?: $this->manager->fileName;
         $this->manager->languages = $this->option('langs') ?: $this->manager->languages;
         $this->manager->path = $this->option('path');
 
+        if($this->manager->doAppend === true && $this->manager->fileType !== 'json') {
+            $this->error('The append option is only possible for type json.');
+			returnl
+        }
+        
         if ($this->manager->isNew) {
             if ($this->confirm('You really want to generate new language files? This will clear all existing files!')) {
                 $this->manager->parseProject();
