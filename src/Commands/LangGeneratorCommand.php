@@ -39,7 +39,7 @@ class LangGeneratorCommand extends Command
 
         if($this->manager->doAppend === true && $this->manager->fileType !== 'json') {
             $this->error('The append option is only possible for type json.');
-			returnl
+			return;
         }
         
         if ($this->manager->isNew) {
