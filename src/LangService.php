@@ -249,7 +249,7 @@ class LangService extends Command
 
                     foreach ($dataArr as $key => $value) {
                         if(!isset($tempArray[$key])) {
-                            $tempArray[$key] = $value;
+                            $tempArray[$key] = $key;
                         }
                     }
 
