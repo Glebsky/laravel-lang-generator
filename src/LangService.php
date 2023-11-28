@@ -243,8 +243,8 @@ class LangService extends Command
         if ($this->fileType === 'json') {
             if (file_exists($path)) {
                 $existingArr = json_decode(file_get_contents($path), true);
-                
-                if($this->doAppend) {
+
+                if ($this->doAppend) {
                     $tempArray = $existingArr;
 
                     foreach ($dataArr as $key => $value) {

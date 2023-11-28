@@ -42,7 +42,7 @@ class LangGeneratorCommand extends Command
 
             return;
         }
-        
+
         if ($this->manager->isNew) {
             if ($this->confirm('You really want to generate new language files? This will clear all existing files!')) {
                 $this->manager->parseProject();
