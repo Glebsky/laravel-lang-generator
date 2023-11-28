@@ -160,7 +160,7 @@ class LangService extends Command
     {
         $fileData = file_get_contents($path);
 
-        $re = '/@lang\(\'(.+?)\'\)|trans\(\'(.+?)\'\)|__\(\'(.+?)\'\)/m';
+        $re = '/@lang\(\'(.+?)\'(?:,\s{0,16}\[.{1,256}\]){0,1}\)|trans\(\'(.+?)\'(?:,\s{0,16}\[.{1,256}\]){0,1}\)|__\(\'(.+?)\'(?:,\s{0,16}\[.{1,256}\]){0,1}\)/m';
         preg_match_all($re, $fileData, $matches, PREG_SET_ORDER, 0);
 
         $data = [];
