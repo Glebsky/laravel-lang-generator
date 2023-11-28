@@ -65,7 +65,7 @@ By default name of lang file is `lang`
 
 In addition, the command accepts several parameters that allow you to flexibly manage the package.
 ```
-php artisan lang:generate --type= --name= --langs= --sync --clear --path=
+php artisan lang:generate --type= --name= --langs= --sync --clear --append --path=
 ```
 ### About parameters 
 
@@ -102,6 +102,14 @@ If you specify this flag, existing language files are removed and new ones are c
 `NOTE! That NOT all language files are deleted, but only with the name specified in the settings.`
 
 Example: `php artisan lang:generate --clear`
+
+---
+
+`--append` or `-A`:
+
+If you specify this flag, new translations found will be added at the end of the JSON file, which might be useful for automatisation or version control. Only usable with JSON as type.
+
+Example: `php artisan lang:generate --type=json --append`
 
 ## Notes
 `lang:generate` will update your language files by writing them completely, meaning that any comments or special styling will be removed, so I recommend you backup your files.

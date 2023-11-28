@@ -8,6 +8,7 @@ class LangService extends Command
 {
     public $isSync = false;
     public $isNew = false;
+    public $doAppend = false;
 
     public $viewsFilesCount = 0;
     public $viewsKeysCount = 0;
@@ -159,7 +160,7 @@ class LangService extends Command
     {
         $fileData = file_get_contents($path);
 
-        $re = '/@lang\(\'(.+?)\'\)|trans\(\'(.+?)\'\)|__\(\'(.+?)\'\)/m';
+        $re = '/@lang\(\'(.+?)\'(?:,\s{0,16}\[.{1,256}\]){0,1}\)|trans\(\'(.+?)\'(?:,\s{0,16}\[.{1,256}\]){0,1}\)|__\(\'(.+?)\'(?:,\s{0,16}\[.{1,256}\]){0,1}\)/m';
         preg_match_all($re, $fileData, $matches, PREG_SET_ORDER, 0);
 
         $data = [];
@@ -243,11 +244,23 @@ class LangService extends Command
             if (file_exists($path)) {
                 $existingArr = json_decode(file_get_contents($path), true);
 
-                foreach ($existingArr as $key => $value) {
-                    $dataArr[$key] = $value;
-                }
+                if ($this->doAppend) {
+                    $tempArray = $existingArr;
 
-                return $dataArr;
+                    foreach ($dataArr as $key => $value) {
+                        if (!isset($tempArray[$key])) {
+                            $tempArray[$key] = $key;
+                        }
+                    }
+
+                    return $tempArray;
+                } else {
+                    foreach ($existingArr as $key => $value) {
+                        $dataArr[$key] = $value;
+                    }
+
+                    return $dataArr;
+                }
             }
 
             foreach ($dataArr as $key => $value) {
@@ -338,7 +351,7 @@ class LangService extends Command
     /**
      * Fill Array language file.
      *
-     * @param $fileName
+     * @param       $fileName
      * @param array $keys
      *
      * @return void
@@ -376,7 +389,7 @@ class LangService extends Command
     /**
      * Write translation keys to a .php arrays.
      *
-     * @param $filePath
+     * @param       $filePath
      * @param array $translations
      *
      * @return void
