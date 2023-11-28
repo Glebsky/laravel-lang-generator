@@ -37,9 +37,10 @@ class LangGeneratorCommand extends Command
         $this->manager->languages = $this->option('langs') ?: $this->manager->languages;
         $this->manager->path = $this->option('path');
 
-        if($this->manager->doAppend === true && $this->manager->fileType !== 'json') {
+        if ($this->manager->doAppend === true && $this->manager->fileType !== 'json') {
             $this->error('The append option is only possible for type json.');
-			return;
+
+            return;
         }
         
         if ($this->manager->isNew) {

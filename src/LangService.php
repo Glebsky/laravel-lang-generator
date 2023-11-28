@@ -9,7 +9,7 @@ class LangService extends Command
     public $isSync = false;
     public $isNew = false;
     public $doAppend = false;
-    
+
     public $viewsFilesCount = 0;
     public $viewsKeysCount = 0;
     public $appFilesCount = 0;
@@ -248,7 +248,7 @@ class LangService extends Command
                     $tempArray = $existingArr;
 
                     foreach ($dataArr as $key => $value) {
-                        if(!isset($tempArray[$key])) {
+                        if (!isset($tempArray[$key])) {
                             $tempArray[$key] = $key;
                         }
                     }
@@ -350,7 +350,7 @@ class LangService extends Command
     /**
      * Fill Array language file.
      *
-     * @param $fileName
+     * @param       $fileName
      * @param array $keys
      *
      * @return void
@@ -388,7 +388,7 @@ class LangService extends Command
     /**
      * Write translation keys to a .php arrays.
      *
-     * @param $filePath
+     * @param       $filePath
      * @param array $translations
      *
      * @return void
