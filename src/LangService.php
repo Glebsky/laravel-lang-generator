@@ -258,6 +258,7 @@ class LangService extends Command
                     foreach ($existingArr as $key => $value) {
                         $dataArr[$key] = $value;
                     }
+
                     return $dataArr;
                 }
             }
