@@ -109,8 +109,6 @@ Example: `php artisan lang:generate --clear`
 
 If you specify this flag, new translations found will be added at the end of the JSON file, which might be useful for automatisation or version control. Only usable with JSON as type.
 
-`NOTE! USing this without JSON as the type will not work!`
-
 Example: `php artisan lang:generate --type=json --append`
 
 ## Notes
