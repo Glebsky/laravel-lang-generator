@@ -24,6 +24,13 @@ You can start the installation through the <b>composer</b> using the command.
 ```
 composer require glebsky/laravel-lang-generator
 ```
+You can also select the required version to support older versions of Laravel
+
+ - v2.0.0 - For Laravel 11+. Using PHP >8.2
+ - v1.1.0 - For Laravel 8 and 9. Using PHP >7.3.
+```
+composer require glebsky/laravel-lang-generator:^1.1.0
+```
 
 ## Configuration
 To create configuration file of this package you can use command:
@@ -61,6 +68,7 @@ it will create new language files with found translation keys.
 By default, name of lang file is `lang`
 
 ![title](https://i.imgur.com/hvDrlVO.jpeg)
+![title](https://i.imgur.com/GolZehZ.png)
 
 ### Parameters
 
@@ -100,7 +108,7 @@ If you specify this flag, then all unused already existing translation keys will
 
 If you specify this flag, existing language files are removed and new ones are created. All existing translations will be removed.
 
-`NOTE! That NOT all language files are deleted, but only with the name specified in the settings.`
+> NOTE! That NOT all language files are deleted, but only with the name specified in the settings.
 
 Example: `php artisan lang:generate --clear`
 
@@ -113,4 +121,4 @@ If you specify this flag, new translations found will be added at the end of the
 Example: `php artisan lang:generate --type=json --append`
 
 ## Notes
-`lang:generate` will update your language files by writing them completely, meaning that any comments or special styling will be removed, so I recommend you backup your files.
+> `lang:generate` will update your language files by writing them completely, meaning that any comments or special styling will be removed, so I recommend you backup your files.
