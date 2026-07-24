@@ -1,6 +1,6 @@
 <?php
 
-namespace Glebsky\LaravelLangGenerator\Commands;
+namespace Glebsky\LaravelLangGenerator\Console\Commands;
 
 use Glebsky\LaravelLangGenerator\LangService;
 use Illuminate\Console\Command;
